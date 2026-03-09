@@ -1,2 +1,17 @@
 \section{Modeling}
 \label{sec:modeling}
+We incorporate the modeling of the original paper, which is for wildfire,
+into our context of high-building fire. 
+We extend the modeling to include smoke at the spreading layer, as well as 
+another allocation aspect of rescue teams. 
+Despite our effort, more advanced modeling incorporating more factors is still needed
+to better simulate the real-world scenario.
+
+\subsection{Model Assumptions}
+We approach this spatial allocation problem as a constrained optimization problem, 
+following the modeling of the original paper. 
+We construct our overall cost function with three separate objective functions: 
+the total population lost, the total property loss, and the total cost of unit deployment,
+in order of importance. 
+To reflect this, we adopt the lexicographic (sequential) optimization strategy, 
+which minimizes the objective functions in order. 
