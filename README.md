@@ -1,3 +1,10 @@
+# How to setup 
+First, `sudo apt update`. 
+
+Then, `sudo apt install texlive-full latexmk`
+
+Finally, to compile the TeX file to PDF, run `latexmk paper` and download the PDF file to view it. 
+
 # Enhanced IEEE Template
 
 > Quick start for modern LaTeXing for an IEEE conference, based on the [Manuscript Template for Conference Proceedings](https://www.ieee.org/conferences_events/conferences/publishing/templates.html).
