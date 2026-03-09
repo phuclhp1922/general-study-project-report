@@ -16,6 +16,19 @@ in order of importance.
 To reflect this, we adopt the lexicographic (sequential) optimization strategy, 
 which minimizes the objective functions in order. 
 
+We model the fire and smoke spread as in the original paper,
+while suppression is a process during which the availability of units differs. 
+The spread model estimates the time at which the fire and smoke will reach each cell, 
+together with the population and property value in each cell, are given to the solver to 
+find the optimal solution. 
+
+We build the solver on the assumption that the optimal allocation is guided by the on-ground
+development, including the cell conditions, population in each cell, 
+property value of each cell, and the accessibility of each cell. 
+The cell condition is determined by the fire and smoke spread arrival time and 
+allocation decision in previous time-step, which results an update of situation and
+changes in these conditions itself. 
+
 \subsection{Model Formulation}
 The model includes the following sets, parameters, decision variables, objective functions,
 and constraints described below
