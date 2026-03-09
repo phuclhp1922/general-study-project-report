@@ -1,9 +1,11 @@
-# How to setup 
+# How to set everything up 
 First, `sudo apt update`. 
 
 Then, `sudo apt install texlive-full latexmk`
 
 Finally, to compile the TeX file to PDF, run `latexmk paper` and download the PDF file to view it. 
+
+Then add the LaTeX Workshop extension to build and view the PDF inside the codespace.
 
 # Enhanced IEEE Template
 
