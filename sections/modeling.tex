@@ -153,4 +153,15 @@ and bound the allocation of resources in our model:
     $$\sum_{t \in T} k_{a,t} + \sum_{t \in T} \phi_{a,t} \geq \sum_{t \in T} \mu_{a,t}, \forall t \in T$$
     $$\sum_{t \in T} f_{a,t} + \sum_{t \in T} \psi_{a,t} \geq \sum_{t \in T} \sigma_{a,t}, \forall t \in T$$
 
+    \item Fire and smoke spread must be consistent with the spread model.
+    $$10 \mu_{a,t} = H_{a,t} \sum_{a' \in neighbors(a)} k_{a',t}, \quad \forall a \in A, \forall t \in (1, T)$$
+    $$10 (1-\mu_{a,t}) \geq 1 - (H_{a,t} \sum_{a' \in neighbors(a)} k_{a',t}), \quad \forall a \in A, \forall t \in (1, T)$$
+
+    $$10 \sigma_{a,t} = F_{a,t} \sum_{a' \in neighbors(a)} f_{a',t}, \quad \forall a \in A, \forall t \in (1, T)$$
+    $$10 (1-\sigma_{a,t}) \geq 1 - (F_{a,t} \sum_{a' \in neighbors(a)} f_{a',t}), \quad \forall a \in A, \forall t \in (1, T)$$
+
+    \item People at risk
+    $$\rho_{a,t} \geq \mu_{a,t} - \phi_{a,t}$$
+    $$\rho_{a,t} \geq \sigma_{a,t} - \psi_{a,t}$$
+
 \end{itemize}
