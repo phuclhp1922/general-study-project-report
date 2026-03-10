@@ -1,2 +1,26 @@
 \section{Introduction}
 \label{sec:introduction}
+
+Fire safety within contemporary built environments encounters escalating obstacles owing to the increased intricacy of architectural designs, high occupancy densities, and the widespread use of new construction materials that can intensify fire hazards. 
+Conventional fire safety mechanisms generally function independently and lack integration with overarching building infrastructures, limiting their adaptability during rapidly evolving crises. 
+In these high-pressure, dynamic situations where quick and accurate decisions are needed to save lives and property, incident commanders require advanced Decision Support Systems (DSS) capable of providing fast, robust, and mathematically optimal solutions.
+
+Recent literature extensively applies Mixed-Integer Linear Programming (MILP) to solve complex optimization problems in emergency management. 
+Within the domain of Resource Allocation in Fire Departments (RAFD), structured literature reviews indicate that Integer Programming (IP) and Data Envelopment Analysis (DEA) are among the most prominent analytical approaches utilized. 
+However, the vast majority of current urban RAFD models focus on macro-level, strategic planning---such as the optimal spatial location of fire stations and the dispatch routing of fleets to satisfy coverage demands. 
+These models predominantly rely on static risk scores or historical incident data rather than real-time, evolving incident dynamics. 
+Consequently, there remains a critical gap in the literature regarding micro-level, tactical deployment models that actively route rescue and suppression teams inside a complex building during an ongoing crisis.
+
+Conversely, operations research in wildland fire management has successfully developed highly dynamic, multi-criteria optimization algorithms that adapt to real-time hazard propagation. 
+The Multicriteria Optimization-Based Resource Allocation (MORA) framework utilizes a lexicographic (sequential) optimization strategy to allocate limited resources, strictly prioritizing human life, followed by property protection, and finally operational costs. 
+Yet, advanced models like MORA are inherently constrained to 2D geographical landscapes and have not been adapted to the complex 3D topologies of modern high-rise buildings. 
+Concurrently, recent advancements in smart buildings---specifically the integration of the Internet of Things (IoT) and Digital Twins---have enabled the real-time monitoring of indoor environmental conditions. 
+While these frameworks excel at detecting fires and visualizing hazards, they remain inherently passive; they lack the algorithmic capacity to actively translate sensor data into optimal tactical deployment strategies for responders.
+
+Motivated by these operational needs, this paper introduces MORAv2, a novel adaptation of the MORA framework re-engineered specifically for building fire emergencies. 
+The proposed MORAv2 model formulates indoor emergency response as an ILP constrained optimization problem. 
+By translating 2D geographic matrices into a 3D structural node network (representing rooms, corridors, and stairwells), MORAv2 functions as an active decision-making solver designed to maximize rescued individuals and minimize property loss. 
+A primary contribution of this research is the introduction of a dynamic ``smoke factor'' to realistically capture the hazardous conditions of indoor rescue planning. 
+By integrating human factors and vulnerabilities into the evacuation model, MORAv2 uses this smoke factor to continuously update the accessibility of building nodes, deliberately preventing responder engagement in compromised or unsurvivable situations. 
+
+Because the physical integration of such advanced algorithmic solvers with live IoT sensor networks remains practically challenging, this study employs a rigorously validated simulation-optimization approach using synthetic fire and smoke propagation data as ``virtual sensors.''
