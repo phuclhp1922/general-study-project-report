@@ -1,37 +1,18 @@
 \section{Related Work}
 \label{sec:related-work}
 
-\subsection{Resource Allocation in Fire Departments (RAFD)}
-In urban contexts, Resource Allocation in Fire Departments (RAFD) is recognized as a strategic level of public sector management that aims to minimize social costs, such as loss of life and property \cite{Eslamzadeh2022}. 
-Structured literature reviews of RAFD demonstrate that mathematical optimization, specifically Integer Programming (IP) and Data Envelopment Analysis (DEA), are the most frequently applied approaches \cite{Eslamzadeh2022}. 
-However, the vast majority of urban fire optimization models focus on macro-level coverage problems. 
-These studies primarily address the optimal spatial location of fire stations and the dispatch routing of fleets to satisfy coverage demands across jurisdictions, paying special attention to Highly Vulnerable Areas (HVAs) such as hospitals and schools \cite{Eslamzadeh2022}. 
-Furthermore, current RAFD studies predominantly utilize historical incident data or static risk scores to predict future demands, rather than adapting to real-time, evolving incident dynamics \cite{Eslamzadeh2022}. 
-Consequently, there is a distinct lack of optimization models designed for the active, micro-level tactical deployment of personnel inside a building during an active fire \cite{Eslamzadeh2022}.
+\subsection{The Shift from Heuristics to MCDM in Fire Emergency}
+The evolution of fire emergency handling has moved from experience-based protocols to structured Multi-Criteria Decision-Making (MCDM) \cite{MDPI_MCDM_2025}. Early applications focused on the Analytic Hierarchy Process (AHP) for ranking urban fire susceptibility \cite{GIS_Site_Selection_2025}. However, recent literature emphasizes the reduction of subjective bias through hybrid models such as CRITIC-TOPSIS and Spherical Fuzzy Sets, which are better equipped to handle the "indeterminacy" inherent in Natech events \cite{SphericalFuzzy_2023, Neutrosophic_PERT_2025}.
 
-\subsection{Wildfire Suppression Optimization Models}
-Conversely, operations research in wildland fire management has successfully developed highly dynamic optimization algorithms that adapt to real-time hazard propagation \cite{GrandaChico2025}. 
-Models frequently utilize Mixed-Integer Linear Programming (MILP) to optimize the allocation of limited ground resources and brigades during the suppression stage \cite{GrandaChico2025}. 
-The MORA framework is a leading DSS in this domain, formulating resource deployment as a Constrained Optimization Problem (COP) \cite{Orphanoudakis2025}. 
-Unlike weighted-sum models, MORA employs a lexicographic (sequential) optimization strategy: it strictly prioritizes minimizing the population exposed to fire risk, followed by minimizing property and land losses, and finally minimizing the operational cost of the deployed resources \cite{Orphanoudakis2025}. 
-Despite their advanced dynamic routing capabilities and strict operational constraints, models like MORA are inherently designed for 2D geographical landscapes divided into raster cells \cite{Orphanoudakis2025,GrandaChico2025}. 
-They have not yet been adapted to the 3D node-based topology of modern high-rises or the specific indoor hazards associated with urban structural fires.
+\subsection{Strategic Resource Allocation and Fleet Management}
+A core pillar of fire optimization research is Resource Allocation in Fire Departments (RAFD). Systematic reviews identify over 400 variables influencing fleet distribution, ranging from demographic shifts to temporal demand patterns \cite{Eslamzadeh2022}. Recent studies in heterogeneous fleet allocation have introduced lexicographic goals to balance human safety against equipment maintenance costs \cite{Fleet_Optimization_2025, Queueing_Fire_2023}. Despite these advancements in 2D spatial coverage, the transition to active, micro-level tactical deployment inside buildings remains under-researched \cite{SAFER_Grants_Analysis}.
 
-\subsection{IoT, BIM, and Digital Twins in Building Fire Safety}
-Recent advancements in smart building design have revolutionized fire risk monitoring through the integration of the Internet of Things (IoT) and Building Information Modeling (BIM) \cite{Abdullahi2025,Zhang2024}. 
-Modern frameworks deploy networks of IoT sensors---capturing real-time data on temperature, smoke density, and carbon monoxide (CO) concentrations---which are then visualized within a 3D BIM environment \cite{Abdullahi2025}. 
-These technologies have proven highly effective for early fire detection, allowing for the calculation of dynamic metrics like the Improved Risk Index (IRI) based on architectural design, occupant density, and real-time environmental conditions \cite{Abdullahi2025}. 
-The concept of the ``Digital Twin'' is also emerging in fire safety engineering, offering real-time virtual replicas of building conditions to aid emergency management \cite{Zhang2024}. 
+\subsection{Indoor Monitoring: IoT, Digital Twins, and IRI}
+The emergence of Building Information Modeling (BIM) and Digital Twins has transformed indoor fire monitoring \cite{Zhang2024}. By utilizing IoT sensor arrays, researchers have developed an Improved Risk Index (IRI) to provide real-time hazard visualization in multi-story residential buildings \cite{Wang2024, Abdullahi2025}. Knowledge-graph-based approaches now allow for the autonomous inference of fire progression laws by fusing textual reports with live sensor data \cite{Smith2025}. However, these systems often function as passive monitors rather than active tactical solvers \cite{TaylorFrancis2025}.
 
-However, significant deficiencies persist. 
-While these smart building frameworks excel at passive data collection, hazard visualization, and theoretical evacuation modeling, they lack active, algorithmic decision-making capabilities \cite{Abdullahi2025}. 
-They provide sensory input but do not possess the integrated mathematical solvers required to actively compute the optimal tactical deployment of rescue and suppression squads \cite{Abdullahi2025}.
+\subsection{Mathematical Programming: From Wildfire to Indoor MILP}
+The most mathematically rigorous response models are often found in wildfire suppression literature. The MORA toolkit, for instance, utilizes lexicographic optimization to prioritize life-safety over property loss in expansive geographical landscapes \cite{Orphanoudakis2025, Initial_Attack_Success_2024}. Recent trends involve the use of Mixed-Integer Linear Programming (MILP) to handle resource scarcity under high uncertainty \cite{GrandaChico2025}. 
 
-\subsection{Evacuation Dynamics and the ``Smoke Factor''}
-During an indoor fire, the rapid propagation of toxic smoke and gases presents the most immediate threat to both occupants and first responders. 
-A recent scoping review on human behavior in fires identified significant research gaps regarding how environmental factors---specifically irritant and toxic smoke---affect movement speed, wayfinding, and decision-making during building evacuations \cite{Kinkel2025}. 
-Current mathematical models often approximate evacuation solutions without adequately accounting for the dynamic expansion of high-risk smoke zones, leaving an unsafe discrepancy between theoretical plans and actual emergency outcomes \cite{ReyesNorambuena2025}. 
 
-To ensure responder safety and evacuation success, it is critical that routing algorithms proactively avoid hazardous, smoke-filled environments. 
-By introducing a dynamic ``smoke factor'' as a strict constraint within an optimization solver, response models can realistically capture the hazards of indoor rescue planning, deliberately preventing responder engagement in compromised or unsurvivable locations. 
-MORAv2 builds upon these identified gaps by synthesizing the mathematical rigor of wildfire MILP solvers with the real-time hazard awareness of indoor sensor networks \cite{GrandaChico2025,Orphanoudakis2025,Abdullahi2025}.
+
+MORAv2 adapts these wildfire programming principles to 3D indoor node networks. By incorporating a dynamic ``smoke factor'' derived from scoping reviews of human behavior in fires \cite{Kinkel2025}, the model accounts for visibility degradation and toxic exposure \cite{ReyesNorambuena2025, Fisher2024}. This allows for the calculation of optimal rescue paths that are not only the fastest but also the safest, bridging the gap between wildfire-scale optimization and indoor tactical reality \cite{PTS_Algorithm_2025, Chen2025}.
