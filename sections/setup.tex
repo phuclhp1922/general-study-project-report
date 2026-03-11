@@ -1,0 +1,50 @@
+\section{Experimental Setup}
+\label{sec:experimental-setup}
+
+To validate the computational viability and operational efficacy of the proposed MORAv2 framework, a simulation-optimization approach was employed. 
+Because deploying a live IoT sensor network in a burning building presents significant practical and safety challenges, this study utilizes synthetic data to act as ``virtual sensors,'' rigorously testing the Integer Linear Programming (ILP) solver's ability to dynamically allocate resources under high-stress conditions.
+
+\subsection{Simulation Environment and ``Virtual Sensor'' Data Generation}
+The evaluation of MORAv2 requires highly accurate, time-dependent spatial data regarding fire and smoke propagation. 
+To simulate the continuous data stream that would theoretically be provided by a smart building's IoT network, a synthetic disaster scenario was generated.
+
+Two distinct hazard matrices were programmed into the simulation environment: a Fire Map and a Smoke Map.
+
+\begin{itemize}
+    \item The \textbf{Smoke Map}: Represents the rapid propagation of toxic gases. If a node is heavily concentrated with smoke, it triggers the dynamic ``smoke factor'' constraint ($\sigma_{a,t}$), immediately altering the node's accessibility and prioritizing it for evacuation.
+    
+    \item The \textbf{Fire Map}: Represents the thermal boundary of the actual flames ($\mu_{a,t}$). By decoupling these two threats, the simulation realistically mimics how smoke travels faster and further than flames, providing the solver with the complex hazard intelligence necessary to prioritize human rescue over property containment.
+\end{itemize}
+
+\subsection{Case Study Scenario: Multi-Story Building Fire}
+The algorithm was tested on a multi 2D grid representing a multi-story building. 
+Each grid represent an area where sensors work.
+
+For the primary test scenario, the ignition point was simulated in a lower-level utility room with high fire-load density. 
+The progression was modeled over a defined set of discrete time periods ($T$). 
+The incident commander's available resources ($I$) were categorized into two distinct functional units to reflect real-world firefighting operations:
+
+\begin{enumerate}
+    \item \textbf{Rescue Teams}: Specialized units strictly assigned to occupant evacuation, characterized by a specific human extraction rate.
+    
+    \item \textbf{Suppression Teams}: Specialized units assigned to extinguish flames and protect structural integrity, characterized by a specific fire suppression rate.
+\end{enumerate}
+
+\subsection{Algorithmic Implementation and Lexicographic Execution}
+The MORAv2 mathematical model was implemented in Python using the PuLP optimization modeling library, which is highly effective for solving complex Mixed-Integer Linear Programming (MILP) problems.
+
+To satisfy the operational hierarchy of emergency management, the solver was programmed to execute a strict lexicographic (sequential) optimization. 
+Rather than blending the objectives into a single weighted-sum function---which could unethically allow the algorithm to trade human lives for lower operational costs---the Python solver runs in three distinct, locked phases:
+
+\begin{itemize}
+    \item \textbf{Phase 1 (Life Safety)}: The solver first processes the Smoke Map and runs the objective function to minimize the total population at risk ($O_1$). Once the absolute minimum number of exposed individuals is calculated, this value is locked as a strict constraint for the next phase.
+    
+    \item \textbf{Phase 2 (Property Protection)}: With $O_1$ locked, the solver processes the Fire Map to route the Suppression Teams, optimizing for the minimum possible property loss and prevention of fully burnt nodes ($O_2$). This optimal value is then locked.
+    
+    \item \textbf{Phase 3 (Operational Efficiency)}: Finally, with both life safety and property protection mathematically guaranteed, the solver optimizes the allocation variables ($x_{i,a,t}$) to minimize the total operational cost and transit time of the deployed units ($O_3$).
+\end{itemize}
+
+\subsection{Evaluation Metrics}
+The performance of the MORAv2 solver is evaluated against two primary metrics. 
+First, computational efficiency is measured by recording the CPU execution time required to solve the complete lexicographic sequence. In dynamic emergencies, decision support algorithms must yield actionable routing within seconds. 
+Second, allocation efficacy is evaluated by comparing the MORAv2 output against standard, static dispatch protocols, measuring the total reduction in smoke-exposed occupants and the total structural value saved.
