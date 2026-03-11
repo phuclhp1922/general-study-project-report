@@ -1,0 +1,107 @@
+\section{Model Validation}
+\label{sec:validation}
+
+The validation of the proposed model was conducted using a close-to-realistic scenario based on the building layout presented in \cite{ref-building-layout}, as illustrated in Figure~\ref{fig:building-layout}.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.32\textwidth]{figures/building.png}
+\caption{Building layout used for the simulation scenario.}
+\label{fig:building-layout}
+\end{figure}
+
+Due to practical limitations and the infeasibility of implementing and testing the system in a real-world fire emergency environment, a simulation environment was developed to emulate the behavior of the building during a fire incident.
+
+The floor layout is divided into cells according to the building structure, including the locations of rooms, corridors, walls, and alarms. Each cell represents a spatial unit where fire spread, smoke propagation, and rescue operations may occur. The cells are indexed sequentially starting from the top-left corner of the grid, with indices ranging from 0 to $6 \times 7 - 1 = 41$. The resulting indexing scheme is shown in Figure~\ref{fig:index-matrix}.
+
+% If you have the index matrix figure → include it here (optional)
+% \begin{figure}[!htb]
+% \centering
+% \includegraphics[width=0.7\textwidth]{figures/index-matrix.png}
+% \caption{Index matrix of the $6 \times 7$ grid (0 to 41).}
+% \label{fig:index-matrix}
+% \end{figure}
+
+The simulation time is divided into discrete time periods, representing the progression of the fire incident. Each period corresponds to a fixed time interval after the initial ignition. In the visualization matrices, these time intervals are denoted as $t = 0, 1, 2, 3,$ and $4$. It is assumed that both fire and smoke propagation rates remain constant throughout the simulation.
+
+Population distribution varies across the building layout, reflecting typical human occupancy patterns. Population density is slightly higher in rooms where most people tend to congregate, compared to corridors and transitional areas.
+
+Five input matrices define the environmental and operational conditions: fire arrival time, smoke arrival time, population distribution, asset value, and minimum suppression rate. These are shown in Figure~\ref{fig:input-matrices}.
+
+\begin{figure}[!htb]
+\centering
+\subfloat[Fire Arrival Time]{\includegraphics[width=0.18\textwidth]{figures/3fire.png}}
+\hfil
+\subfloat[Smoke Arrival Time]{\includegraphics[width=0.18\textwidth]{figures/3smoke.png}}
+\hfil
+\subfloat[Population Distribution]{\includegraphics[width=0.18\textwidth]{figures/3population.png}}
+\hfil
+\subfloat[Property Value]{\includegraphics[width=0.18\textwidth]{figures/3value.png}}
+\hfil
+\subfloat[Min. Suppression]{\includegraphics[width=0.18\textwidth]{figures/3min.png}}
+\caption{Input matrices for the validation scenario.}
+\label{fig:input-matrices}
+\end{figure}
+
+In this scenario, six resource types are considered (three suppression-oriented and three rescue-oriented). Their suppression rates, costs, and time-dependent availability are given in Table~\ref{tab:resource-teams}. The total operational budget is set to 500.
+
+\begin{table}[!htb]
+\centering
+\caption{Resource Teams and Their Capacities Over Time}
+\label{tab:resource-teams}
+\begin{tabularx}{\linewidth}{@{}c c c X@{}}
+\hline
+\textbf{Resource Type} & \textbf{Suppression Rate} & \textbf{Cost} & \textbf{Capacity (Availability)} \\ 
+\hline
+A & 3  & 8  & \shortstack{$t=0$:1 \\ $t=1$:2 \\ $t=2$:1 \\ $t=3$:2 \\ $t=4$:2} \\
+\hline
+B & 5  & 18 & \shortstack{$t=0$:1 \\ $t=1$:2 \\ $t=2$:0 \\ $t=3$:1 \\ $t=4$:2} \\
+\hline
+C & 7  & 35 & \shortstack{$t=0$:0 \\ $t=1$:2 \\ $t=2$:0 \\ $t=3$:1 \\ $t=4$:2} \\
+\hline
+D & 0  & 7  & \shortstack{$t=0$:1 \\ $t=1$:2 \\ $t=2$:1 \\ $t=3$:1 \\ $t=4$:3} \\
+\hline
+E & 0  & 16 & \shortstack{$t=0$:0 \\ $t=1$:1 \\ $t=2$:2 \\ $t=3$:2 \\ $t=4$:1} \\
+\hline
+F & 1  & 37 & \shortstack{$t=0$:0 \\ $t=1$:1 \\ $t=2$:0 \\ $t=3$:1 \\ $t=4$:2} \\
+\hline
+\end{tabularx}
+\end{table}
+
+All response operations are performed by ground crews. Accordingly, only cells reachable via the building's floor layout (accessibility value = 0) can be assigned resources.
+
+The optimization model determines resource allocation in each time period to minimize vulnerable population exposed to hazards, property loss, and deployment cost (subject to budget and accessibility constraints).
+
+The resulting optimal strategies across the five time steps are illustrated in Figures~\ref{fig:simulation-results}.
+
+\begin{figure}[!htb]
+\centering
+\subfloat[$t=0$]{\includegraphics[width=0.32\textwidth]{figures/3t0.png}}
+\hfil
+\subfloat[$t=1$]{\includegraphics[width=0.32\textwidth]{figures/3t1.png}}
+\hfil
+\subfloat[$t=2$]{\includegraphics[width=0.32\textwidth]{figures/3t2.png}} \\
+\subfloat[$t=3$]{\includegraphics[width=0.32\textwidth]{figures/3t3.png}}
+\hfil
+\subfloat[$t=4$]{\includegraphics[width=0.32\textwidth]{figures/3t4.png}}
+\caption{Optimal deployment strategies: hazard prediction, outcome status, and tactical allocation across time steps.}
+\label{fig:simulation-results}
+\end{figure}
+
+% Optional: individual figure environments if you prefer separate floats
+% \begin{figure}[!htb]
+% \centering
+% \includegraphics[width=0.9\textwidth]{figures/3t0.png}
+% \caption{Simulation results at $t=0$.}
+% \label{fig:t0}
+% \end{figure}
+% ... repeat for t=1 to t=4 ...
+
+At $t=0$, the system identifies the ignition point and predicts early hazard propagation. Due to limited initial resources and high suppression requirement at the origin cell, deployment is conservative or focused on adjacent high-risk smoke-affected zones.
+
+At $t=1$–$t=2$, more units become available. The model prioritizes cells with active fire, high population density, and high asset value, successfully suppressing several spreading fronts and rescuing occupants.
+
+At $t=3$–$t=4$, remaining hazards are contained. Additional resources reinforce protected zones and complete evacuation from threatened areas, preventing further escalation.
+
+In summary, the model effectively coordinates multi-type resource deployment under tight constraints, significantly reducing both human risk and property damage while staying within the operational budget. It demonstrates robust real-time decision support for dynamic fire emergencies.
+
