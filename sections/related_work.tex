@@ -2,20 +2,48 @@
 \label{sec:related-work}
 
 \subsection{Evolution of MCDM in Fire Science}
-Multi-Criteria Decision-Making (MCDM) has emerged as the dominant paradigm for structuring complex fire emergency problems \cite{MDPI_MCDM_2025, GrandaChico2025}. While the Analytic Hierarchy Process (AHP) remains a foundational tool for risk ranking, recent literature emphasizes the need for objective weighting methods like CRITIC and Entropy to reduce expert bias \cite{Patel2025, Singh2023, MDPI_MCDM_2025}. Advanced logic systems, including Spherical Fuzzy Sets (SFS) and Neutrosophic logic, are increasingly utilized to handle the "indeterminacy" and epistemic uncertainty inherent in high-pressure disaster operations \cite{SphericalFuzzy_2023, Neutrosophic_PERT_2025, Doe2024, Lee2025}.
+Multi-Criteria Decision-Making (MCDM) has emerged as the dominant paradigm for structuring complex fire emergency problems 
+\cite{math13050731}, \cite{GrandaChico2025}. 
+While the Analytic Hierarchy Process (AHP) remains a foundational tool for risk ranking, 
+recent literature emphasizes the need for objective weighting methods like CRITIC and Entropy to reduce expert bias 
+\cite{Patel2025}, \cite{Singh2023} \cite{math13050731}. 
+Advanced logic systems, including Spherical Fuzzy Sets (SFS) and Neutrosophic logic, 
+are increasingly utilized to handle the "indeterminacy" and epistemic uncertainty inherent in high-pressure disaster operations 
+\cite{SphericalFuzzy_2023, Neutrosophic_PERT_2025, Doe2024, Lee2025}.
 
 \subsection{Strategic Resource Allocation and Fleet Management}
-Resource Allocation in Fire Departments (RAFD) is a high-stakes domain focused on minimizing social costs—specifically life and property loss \cite{Eslamzadeh2022, Johnson2024}. Literature reviews identify over 400 variables influencing resource distribution, ranging from population density to temporal demand shifts \cite{Eslamzadeh2022, Garcia2024}. Recent research focuses on the management of heterogeneous fleets—combining engines, ladders, and SUVs—utilizing Multi-Depot Vehicle Routing (MDHF-VRPTW-SPD) and Queueing Models (M/G/$\infty$) to improve Effective Response Force (ERF) assembly times \cite{Brown2025, Taylor2023, Zhou2025, Davis2026, Kim2025}.
+Resource Allocation in Fire Departments (RAFD) is a high-stakes domain focused on minimizing social costs—specifically life and property loss 
+\cite{Eslamzadeh2022}. 
+Literature reviews identify over 400 variables influencing resource distribution, ranging from population density to temporal demand shifts 
+\cite{Eslamzadeh2022, Garcia2024}. 
+Recent research focuses on the management of heterogeneous fleets—combining engines, ladders, 
+and SUVs—utilizing Multi-Depot Vehicle Routing (MDHF-VRPTW-SPD) and Queueing Models (M/G/$\infty$) to improve Effective Response Force (ERF) 
+assembly times \cite{Brown2025, Taylor2023, Zhou2025, Davis2026, Kim2025}.
 
 \subsection{IoT, Digital Twins, and 3D Fire Monitoring}
-The shift toward "Smart Firefighting" is enabled by the bidirectional flow of data between physical environments and Digital Twins \cite{Zhang2024, Smith2025}. Integration of IoT sensor arrays (temperature, CO, smoke) allows for the calculation of the Improved Risk Index (IRI), providing dynamic hazard visualization in multi-story residential buildings \cite{Wang2024, Abdullahi2025, Wuhan_Group2024}. Knowledge-graph-based approaches further enhance this by fusing textual reports with live sensor data to predict fire propagation laws autonomously \cite{Smith2025, Zhao2025, NIST2026}.
+The shift toward "Smart Firefighting" is enabled by the bidirectional flow of data between physical environments and Digital Twins 
+\cite{Smith2025}. Integration of IoT sensor arrays (temperature, CO, smoke) allows for the calculation of the Improved Risk Index (IRI), 
+providing dynamic hazard visualization in multi-story residential buildings \cite{Wuhan_Group2024}. 
+Knowledge-graph-based approaches further enhance this by fusing textual reports with live sensor data to
+predict fire propagation laws autonomously \cite{Smith2025, Zhao2025, NIST2026}.
 
 \subsection{Optimization Algorithms for Evacuation Efficiency}
-Tactical response relies on high-speed pathfinding algorithms capable of operating in degraded environments \cite{Chen2025, Guo2025}. Hybrid models like the PTS algorithm (Pathfinder and Tunicate Swarm) and GreyGNN-MARL have demonstrated significant reductions in evacuation times, ranging from 7.7\% to 25\% \cite{Chen2025, GrandaChico2025, Li2025}. These models are increasingly tested against bio-inspired metaheuristics, such as NSGA-III, to optimize critical infrastructure reliability under fire stress \cite{Guo2025, NSGAIII_Cloud_2025, Park2025}.
+Tactical response relies on high-speed pathfinding algorithms capable of operating in degraded environments \cite{Chen2025, Guo2025}. 
+Hybrid models like the PTS algorithm (Pathfinder and Tunicate Swarm) and GreyGNN-MARL 
+have demonstrated significant reductions in evacuation times, ranging from 7.7\% to 25\% \cite{Chen2025, GrandaChico2025, Li2025}. 
+These models are increasingly tested against bio-inspired metaheuristics, such as NSGA-III, 
+to optimize critical infrastructure reliability under fire stress \cite{Guo2025, NSGAIII_Cloud_2025, Park2025}.
 
 
 \subsection{Human Behavior and the ``Smoke Factor''}
-One of the most critical trends is the interdisciplinary assessment of human behavior in fires (HBiF) \cite{Kinkel2025, Fisher2024}. Scoping reviews identify nearly 40 research gaps, specifically regarding how toxic and irritant smoke affects wayfinding and decision-making \cite{Kinkel2025, Miller2024}. MORAv2 incorporates these nuances by treating the ``smoke factor'' as a dynamic constraint, prioritizing nodes for evacuation based on real-time visibility and toxicological thresholds \cite{ReyesNorambuena2025, Grant2025, Hurst2026}.
+One of the most critical trends is the interdisciplinary assessment of human behavior in fires (HBiF) \cite{Kinkel2025, Fisher2024}. 
+Scoping reviews identify nearly 40 research gaps, specifically regarding how toxic and irritant smoke affects wayfinding and decision-making 
+\cite{Kinkel2025, Miller2024}. MORAv2 incorporates these nuances by treating the ``smoke factor'' as a dynamic constraint, 
+prioritizing nodes for evacuation based on real-time visibility and toxicological thresholds \cite{ReyesNorambuena2025, Grant2025, Hurst2026}.
 
 \subsection{MILP and the MORA Framework}
-Operations research in wildland fire suppression has pioneered the use of Mixed-Integer Linear Programming (MILP) for real-time hazard adaptation \cite{GrandaChico2025, Orphanoudakis2025}. The MORA toolkit utilize lexicographic optimization to strictly prioritize life-safety over property and operational costs \cite{Orphanoudakis2025, Ontario_Fire_Group_2024}. MORAv2 bridges the gap between these large-scale wildfire models and indoor tactical reality by mapping wildfire suppression logic onto 3D structural node topologies \cite{Orphanoudakis2025, Chen2025, Roberts2025}.
+Operations research in wildland fire suppression has pioneered the use of Mixed-Integer Linear Programming (MILP) for real-time hazard adaptation 
+\cite{GrandaChico2025, Orphanoudakis2025}. The MORA toolkit utilize lexicographic optimization to 
+strictly prioritize life-safety over property and operational costs \cite{Orphanoudakis2025, Ontario_Fire_Group_2024}. 
+MORAv2 bridges the gap between these large-scale wildfire models and indoor tactical reality by 
+mapping wildfire suppression logic onto 3D structural node topologies \cite{Orphanoudakis2025, Chen2025, Roberts2025}.

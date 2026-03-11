@@ -1,11 +1,31 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Fire safety within contemporary built environments encounters escalating obstacles owing to increased architectural complexity, high occupancy densities, and the widespread use of synthetic materials that intensify fire hazards \cite{Abdullahi2025, Muller2025}. Conventional fire safety mechanisms generally function independently and lack integration with overarching building infrastructures, limiting their adaptability during rapidly evolving, ``Black Swan'' crises \cite{Abdullahi2025, Kinkel2025, Singh2023}. In these high-pressure, dynamic situations where quick and accurate decisions are critical to saving lives, incident commanders require advanced Decision Support Systems (DSS) capable of providing robust, mathematically optimal solutions \cite{GrandaChico2025, Roberts2025}.
+Fire safety within contemporary built environments encounters escalating obstacles owing to increased architectural complexity, 
+high occupancy densities, and the widespread use of synthetic materials that intensify fire hazards \cite{Muller2025}. 
+Conventional fire safety mechanisms generally function independently and lack integration with overarching building infrastructures, 
+limiting their adaptability during rapidly evolving, ``Black Swan'' crises \cite{Kinkel2025}, \cite{Singh2023}. 
+In these high-pressure, dynamic situations where quick and accurate decisions are critical to saving lives, 
+incident commanders require advanced Decision Support Systems (DSS) capable of providing robust, mathematically optimal solutions 
+\cite{GrandaChico2025, Roberts2025}.
 
-The strategic management of fire protection services (FPS) is undergoing a paradigm shift from experience-based heuristics to rigorous, data-driven Resource Allocation in Fire Departments (RAFD) \cite{Eslamzadeh2022, Johnson2024}. Historically, these models have utilized Integer Programming (IP) and Data Envelopment Analysis (DEA) to optimize macro-level objectives, such as fire station placement and fleet distribution, to minimize social costs \cite{Eslamzadeh2022, Taylor2023, Patel2025}. However, a significant ``tactical gap'' persists; while existing research excels at macro-level 2D coverage, it lacks the granularity to route rescue teams inside 3D structures during active incidents \cite{Eslamzadeh2022, Zhang2024, Wang2024}.
+The strategic management of fire protection services (FPS) is undergoing a paradigm shift from experience-based heuristics to rigorous, 
+data-driven Resource Allocation in Fire Departments (RAFD) \cite{Eslamzadeh2022}. 
+Historically, these models have utilized Integer Programming (IP) and Data Envelopment Analysis (DEA) to optimize macro-level objectives, 
+such as fire station placement and fleet distribution, to minimize social costs \cite{Eslamzadeh2022, Taylor2023, Patel2025}. 
+However, a significant ``tactical gap'' persists; while existing research excels at macro-level 2D coverage, 
+it lacks the granularity to route rescue teams inside 3D structures during active incidents \cite{Eslamzadeh2022}.
 
 
-Concurrently, innovations in smart buildings—specifically the Internet of Things (IoT), Building Information Modeling (BIM), and Digital Twins—have enabled real-time monitoring of environmental hazards \cite{Zhang2024, Smith2025, Abdullahi2025}. Yet, these systems remain largely passive, providing visualization without the algorithmic capacity to autonomously compute optimal deployment strategies \cite{Zhang2024, TaylorFrancis2025}. 
+Concurrently, innovations in smart buildings—specifically the Internet of Things (IoT), Building Information Modeling (BIM), 
+and Digital Twins—have enabled real-time monitoring of environmental hazards \cite{Smith2025}. 
+Yet, these systems remain largely passive, providing visualization without the algorithmic capacity to 
+autonomously compute optimal deployment strategies . 
 
-Motivated by these operational needs, this paper introduces \textbf{MORAv2}, a novel adaptation of the Multicriteria Optimal Resource Allocation (MORA) framework originally developed for wildfire suppression \cite{Orphanoudakis2025, Ontario_Fire_Group_2024}. By re-engineering MORA's lexicographic optimization for 3D indoor node networks, MORAv2 functions as an active decision-making solver \cite{GrandaChico2025, Roberts2025}. A primary contribution is the introduction of a dynamic ``smoke factor'' that accounts for toxicological constraints and human behavioral nuances, preventing responder engagement in unsurvivable conditions \cite{ReyesNorambuena2025, Kinkel2025, Fisher2024}.
+Motivated by these operational needs, this paper introduces \textbf{MORAv2}, 
+a novel adaptation of the Multicriteria Optimal Resource Allocation (MORA) framework originally developed for wildfire suppression 
+\cite{Orphanoudakis2025, Ontario_Fire_Group_2024}. 
+By re-engineering MORA's lexicographic optimization for 3D indoor node networks, 
+MORAv2 functions as an active decision-making solver \cite{GrandaChico2025, Roberts2025}. 
+A primary contribution is the introduction of a dynamic ``smoke factor'' that accounts for toxicological constraints 
+and human behavioral nuances, preventing responder engagement in unsurvivable conditions \cite{ReyesNorambuena2025, Kinkel2025, Fisher2024}.
