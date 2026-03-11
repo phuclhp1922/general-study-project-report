@@ -466,7 +466,7 @@
 % See https://bytefreaks.net/tag/ieeeoverridecommandlockouts for details.
 %\IEEEoverridecommandlockouts
 
-\title{General Study Project Report}
+\title{General Study Project Report \\ MORAv2 - A Mixed-Integer Linear Programming Framework for Real-Time Resource Allocation in Building Fire Emergencies}
 
 \author{\IEEEauthorblockN{Khoa Nguyen Hoang Anh\IEEEauthorrefmark{1}, Phuc Nguyen Song Thien\IEEEauthorrefmark{1}, and Do Cao Kim\IEEEauthorrefmark{1}}
 
@@ -474,7 +474,7 @@
 
 Ho Chi Minh City, Vietnam\\
 
-\texttt{\{10422---, 10422067, 10422---\}@student.vgu.edu.vn}}}
+\texttt{\{10422037, 10422067, 10422---\}@student.vgu.edu.vn}}}
 
 % use for special paper notices
 %\IEEEspecialpapernotice{(Invited Paper)}
@@ -503,12 +503,20 @@ Ho Chi Minh City, Vietnam\\
 \fi
 
 \begin{abstract}
-blah blah blah
-
+Recent literature extensively applies Mixed-Integer Linear Programming (MILP) to solve complex optimization problems in emergency management.
+Within this domain, rapid and effective emergency response to urban building fires remains a critical challenge. 
+In these high-pressure situations, where incident commanders face dynamic and uncertain environments, Operations Research (OR) methodologies provide the necessary framework for fast, robust, and mathematically optimal decision-making. 
+Motivated by these operational needs, this paper introduces MORAv2, a novel adaptation of the Multicriteria Optimization-Based Resource Allocation (MORA) framework. Originally developed for large-scale wildfire suppression, 
+MORAv2 is re-engineered specifically for building fire emergencies.
+The proposed MORAv2 model formulates indoor emergency response as an Integer Linear Programming (ILP) constrained optimization problem. Unlike traditional models that focus on macro-level station location or fleet routing,
+this study focuses on micro-level tactical response actions during an active incident to maximize rescued individuals and minimize property loss. 
+While retaining the core lexicographic concepts and operational constraints of the original MORA framework, this research introduces a dynamic ``smoke factor'' to realistically capture the hazardous conditions of indoor rescue planning. 
+Operating through a lexicographic optimization strategy, the algorithm sequentially calculates optimal deployment to strictly minimize the total population at risk, property loss, and operational transit times. 
+The results demonstrate the solver’s computational viability, bridging the gap between passive smart-building technologies and active mathematical optimization for real-time indoor emergency response.
 \end{abstract}
 
 \begin{IEEEkeywords}
-blah blah blah
+Optimization, Resource Allocation, Mixed-Integer Linear Programming, Decision Support Systems, Building Fire Emergencies
 
 \end{IEEEkeywords}
 
@@ -526,7 +534,7 @@ blah blah blah
 
 \input{sections/introduction.tex}
 \input{sections/related_work.tex}
-\input{sections/contribution.tex}
+\input{sections/setup.tex}
 \input{sections/modeling.tex}
 \input{sections/demonstration.tex}
 \input{sections/conclusion.tex}
