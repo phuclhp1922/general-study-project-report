@@ -81,4 +81,189 @@
 \label{fig:simulation-results}
 \end{figure*}
 
+\begin{figure*}[!htb]
+\centering
+\begin{minipage}{0.9\textwidth}
+\begin{lstlisting}[language=json,caption={Input configuration for the first demonstration case}]
+{
+ "num_floors":1,
+ "grid_size":[3,3],
+
+ "resources":["A","B","C"],
+ "suppression_rates":[3,1,2],
+ "rescue_rates":[0,2,2],
+ "squad_costs":[3,2,4],
+
+ "inventory":[[0,2,1],[0,1,1],[1,1,2]],
+
+ "accessibility":[[[0,0,0],[0,0,0],[-1,-1,0]]],
+
+ "fire_map":[[[2,2,2],[2,1,0],[-1,-1,3]]],
+
+ "smoke_map":[[[1,1,1],[1,0,0],[-1,-1,2]]],
+
+ "population_map":[[[1,1,2],[2,1,2],[0,0,1]]],
+
+ "value_map":[[[200,200,400],[800,100,900],[0,0,500]]],
+
+ "min_suppression_required":[[[1,2,3],[4,2,4],[0,0,2]]],
+
+ "total_budget":30,
+ "M":[0,0,0],
+ "Tset":[0,1,2]
+}
+\end{lstlisting}
+\end{minipage}
+\end{figure*}
+
+\begin{figure*}[!htb]
+\centering
+\begin{minipage}{0.9\textwidth}
+\begin{lstlisting}[language=json,caption={Input configuration for the second demonstration case}]
+{
+ "num_floors":2,
+ "grid_size":[3,3],
+
+ "resources":["A","B","C","D","E","F"],
+ "suppression_rates":[3,1,2,3,1,2],
+ "rescue_rates":[0,2,2,0,2,2],
+ "squad_costs":[3,2,4,6,4,8],
+
+ "inventory":[
+  [0,2,1],
+  [0,1,1],
+  [1,1,2],
+  [0,2,1],
+  [0,1,1],
+  [1,1,2]
+ ],
+
+ "accessibility":[
+  [[0,0,0],[0,0,0],[-1,-1,0]],
+  [[1,1,1],[1,1,1],[-1,-1,1]]
+ ],
+
+ "fire_map":[
+  [[2,2,2],[2,1,0],[-1,-1,3]],
+  [[2,2,2],[0,1,2],[-1,-1,3]]
+ ],
+
+ "smoke_map":[
+  [[1,1,1],[1,0,0],[-1,-1,2]],
+  [[1,1,1],[0,0,1],[-1,-1,2]]
+ ],
+
+ "population_map":[
+  [[1,1,2],[2,1,2],[0,0,1]],
+  [[1,1,2],[2,1,2],[0,0,1]]
+ ],
+
+ "value_map":[
+  [[200,200,400],[900,100,800],[0,0,500]],
+  [[200,200,400],[800,100,900],[0,0,500]]
+ ],
+
+ "min_suppression_required":[
+  [[1,2,3],[4,2,4],[0,0,2]],
+  [[1,2,3],[4,2,4],[0,0,2]]
+ ],
+
+ "total_budget":80,
+ "M":[0,0,0,1,1,1],
+ "Tset":[0,1,2]
+}
+\end{lstlisting}
+\end{minipage}
+\end{figure*}
+
+\begin{figure*}[!htb]
+\centering
+\begin{minipage}{0.8\textwidth}
+\begin{lstlisting}[language=json,caption={Input configuration for the validation case},breaklines=true,columns=fullflexible,basicstyle=\ttfamily\scriptsize]
+{
+ "num_floors":1,
+ "grid_size":[7,6],
+
+ "resources":["A","B","C","D","E","F"],
+ "suppression_rates":[3,5,7,0,0,1],
+ "rescue_rates":[0,1,1,2,3,5],
+ "squad_costs":[8,18,35,7,16,37],
+
+ "inventory":[
+  [1,2,1,2,2],
+  [1,2,0,1,2],
+  [0,2,0,1,2],
+  [1,2,1,1,3],
+  [0,1,2,2,1],
+  [0,1,0,1,2]
+ ],
+
+ "accessibility":[[
+  [-1,-1,0,0,-1,-1],
+  [0,0,0,0,0,0],
+  [-1,0,0,0,0,-1],
+  [-1,-1,0,0,-1,-1],
+  [-1,0,0,0,0,-1],
+  [0,0,0,0,0,0],
+  [-1,-1,0,0,-1,-1]
+ ]],
+
+ "fire_map":[[
+  [-1,-1,6,6,-1,-1],
+  [7,6,5,5,6,7],
+  [-1,6,4,4,6,-1],
+  [-1,-1,3,4,-1,-1],
+  [-1,1,2,5,7,-1],
+  [1,0,1,6,7,8],
+  [-1,-1,2,7,-1,-1]
+ ]],
+
+ "smoke_map":[[
+  [-1,-1,4,4,-1,-1],
+  [5,5,4,4,5,5],
+  [-1,5,3,3,5,-1],
+  [-1,-1,2,2,-1,-1],
+  [-1,1,2,3,5,-1],
+  [1,0,1,4,5,5],
+  [-1,-1,2,4,-1,-1]
+ ]],
+
+ "population_map":[[
+  [0,0,1,1,0,0],
+  [2,1,2,1,2,2],
+  [0,3,1,1,2,0],
+  [0,0,1,1,0,0],
+  [0,3,1,1,2,0],
+  [1,2,2,3,1,2],
+  [0,0,1,2,0,0]
+ ]],
+
+ "value_map":[[
+  [0,0,120,180,0,0],
+  [600,250,150,200,300,650],
+  [0,700,30,40,600,0],
+  [0,0,30,30,0,0],
+  [0,400,50,80,600,0],
+  [500,300,250,300,450,800],
+  [0,0,350,400,0,0]
+ ]],
+
+ "min_suppression_required":[[
+  [0,0,13,12,0,0],
+  [12,8,8,9,13,15],
+  [0,14,3,3,10,0],
+  [0,0,4,3,0,0],
+  [0,10,4,5,13,0],
+  [17,15,10,11,14,18],
+  [0,0,13,15,0,0]
+ ]],
+
+ "total_budget":500,
+ "M":[0,0,0,0,0,0],
+ "Tset":[0,1,2,3,4]
+}
+\end{lstlisting}
+\end{minipage}
+\end{figure*}
+
 \clearpage
