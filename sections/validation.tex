@@ -1,92 +1,92 @@
 \section{Model Validation}
 \label{sec:validation}
 
-The validation of the proposed model was conducted using a close-to-realistic scenario based on the building layout presented in \cite{ref-building-layout}, as illustrated in Figure~\ref{fig:building-layout}.
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=0.32\textwidth]{figures/building.png}
-\caption{Building layout used for the simulation scenario.}
-\label{fig:building-layout}
-\end{figure}
+The validation of the proposed model was conducted using a close-to-realistic scenario based on the building layout presented in \cite{Abdullahi2025}}, as illustrated in Figure~\ref{fig:building-layout}.
 
 Due to practical limitations and the infeasibility of implementing and testing the system in a real-world fire emergency environment, a simulation environment was developed to emulate the behavior of the building during a fire incident.
 
-The floor layout is divided into cells according to the building structure, including the locations of rooms, corridors, walls, and alarms. Each cell represents a spatial unit where fire spread, smoke propagation, and rescue operations may occur. The cells are indexed sequentially starting from the top-left corner of the grid, with indices ranging from 0 to $6 \times 7 - 1 = 41$. The resulting indexing scheme is shown in Figure~\ref{fig:index-matrix}.
-
-% If you have the index matrix figure → include it here (optional)
-% \begin{figure}[!htb]
-% \centering
-% \includegraphics[width=0.7\textwidth]{figures/index-matrix.png}
-% \caption{Index matrix of the $6 \times 7$ grid (0 to 41).}
-% \label{fig:index-matrix}
-% \end{figure}
-
-The simulation time is divided into discrete time periods, representing the progression of the fire incident. Each period corresponds to a fixed time interval after the initial ignition. In the visualization matrices, these time intervals are denoted as $t = 0, 1, 2, 3,$ and $4$. It is assumed that both fire and smoke propagation rates remain constant throughout the simulation.
-
-Population distribution varies across the building layout, reflecting typical human occupancy patterns. Population density is slightly higher in rooms where most people tend to congregate, compared to corridors and transitional areas.
-
-Five input matrices define the environmental and operational conditions: fire arrival time, smoke arrival time, population distribution, asset value, and minimum suppression rate. These are shown in Figure~\ref{fig:input-matrices}.
-
-\begin{figure}[!htb]
-\centering
-\subfloat[Fire Arrival Time]{\includegraphics[width=0.18\textwidth]{figures/3fire.png}}
-\hfil
-\subfloat[Smoke Arrival Time]{\includegraphics[width=0.18\textwidth]{figures/3smoke.png}}
-\hfil
-\subfloat[Population Distribution]{\includegraphics[width=0.18\textwidth]{figures/3population.png}}
-\hfil
-\subfloat[Property Value]{\includegraphics[width=0.18\textwidth]{figures/3value.png}}
-\hfil
-\subfloat[Min. Suppression]{\includegraphics[width=0.18\textwidth]{figures/3min.png}}
-\caption{Input matrices for the validation scenario.}
-\label{fig:input-matrices}
-\end{figure}
-
-In this scenario, six resource types are considered (three suppression-oriented and three rescue-oriented). Their suppression rates, costs, and time-dependent availability are given in Table~\ref{tab:resource-teams}. The total operational budget is set to 500.
+The floor layout is divided into cells according to the building structure, including the locations of rooms, corridors, walls, and alarms. Each cell represents a spatial unit where fire spread, smoke propagation, and rescue operations may occur. The cells are indexed sequentially starting from the top-left corner of the grid, with indices ranging from 0 to $6 \times 7 - 1 = 41$. The resulting indexing scheme is shown in Table~\ref{tab:index-matrix}.
 
 \begin{table}[!htb]
 \centering
-\caption{Resource Teams and Their Capacities Over Time}
-\label{tab:resource-teams}
-\begin{tabularx}{\linewidth}{@{}c c c X@{}}
+\caption{7×6 Indexing Matrix (0 to 41)}
+\label{tab:index-matrix}
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
-\textbf{Resource Type} & \textbf{Suppression Rate} & \textbf{Cost} & \textbf{Capacity (Availability)} \\ 
-\hline
-A & 3  & 8  & \shortstack{$t=0$:1 \\ $t=1$:2 \\ $t=2$:1 \\ $t=3$:2 \\ $t=4$:2} \\
-\hline
-B & 5  & 18 & \shortstack{$t=0$:1 \\ $t=1$:2 \\ $t=2$:0 \\ $t=3$:1 \\ $t=4$:2} \\
-\hline
-C & 7  & 35 & \shortstack{$t=0$:0 \\ $t=1$:2 \\ $t=2$:0 \\ $t=3$:1 \\ $t=4$:2} \\
-\hline
-D & 0  & 7  & \shortstack{$t=0$:1 \\ $t=1$:2 \\ $t=2$:1 \\ $t=3$:1 \\ $t=4$:3} \\
-\hline
-E & 0  & 16 & \shortstack{$t=0$:0 \\ $t=1$:1 \\ $t=2$:2 \\ $t=3$:2 \\ $t=4$:1} \\
-\hline
-F & 1  & 37 & \shortstack{$t=0$:0 \\ $t=1$:1 \\ $t=2$:0 \\ $t=3$:1 \\ $t=4$:2} \\
-\hline
-\end{tabularx}
+ 0 &  1 &  2 &  3 &  4 &  5 \\ \hline
+ 6 &  7 &  8 &  9 & 10 & 11 \\ \hline
+12 & 13 & 14 & 15 & 16 & 17 \\ \hline
+18 & 19 & 20 & 21 & 22 & 23 \\ \hline
+24 & 25 & 26 & 27 & 28 & 29 \\ \hline
+30 & 31 & 32 & 33 & 34 & 35 \\ \hline
+36 & 37 & 38 & 39 & 40 & 41 \\ \hline
+\end{tabular}
 \end{table}
 
-All response operations are performed by ground crews. Accordingly, only cells reachable via the building's floor layout (accessibility value = 0) can be assigned resources.
+The simulation time is divided into discrete times, representing the progression of the fire incident. Each period corresponds to a fixed time interval after the initial ignition. In the visualization matrices, these time intervals are denoted as $t = 0, 1, 2, 3,$ and $4$. It is assumed that both fire and smoke propagation rates remain constant throughout the simulation, meaning that the cell size does not change across periods. Consequently, the predicted fire arrival times, smoke arrival times, and population distributions remain fixed for each cell during the simulation.
 
-The optimization model determines resource allocation in each time period to minimize vulnerable population exposed to hazards, property loss, and deployment cost (subject to budget and accessibility constraints).
+Population distribution varies across the building layout, reflecting typical human occupancy patterns. In particular, population density is slightly higher in rooms where most people tend to congregate, compared other spaces such as corridors and transitional areas contain fewer people.
 
-The resulting optimal strategies across the five time steps are illustrated in Figures~\ref{fig:simulation-results}.
+To initialize the scenario, five matrices are defined to represent the environmental and operational conditions. These matrices describe the fire arrival time, smoke arrival time, population distribution, asset value, and minimum suppression rate required for each cell. The matrices are presented in Figure~\ref{fig:input-matrices}(a)-(e).
 
-\begin{figure}[!htb]
+According to the fire arrival time matrix, the fire ignites from the cell with a value equal to 0 and subsequently spreads to neighboring cells over time.
+
+In this validation scenario, it is assumed that there are six different resource types of response teams: three suppression-oriented teams and three rescue-oriented teams. Each resource type is characterized by its suppression capability, rescue capability, deployment cost, and availability over time. Their parameters are given in Table~\ref{tab:resource-teams}. The total operational budget is limited up to 500.
+
+\begin{table}[!htb]
 \centering
-\subfloat[$t=0$]{\includegraphics[width=0.32\textwidth]{figures/3t0.png}}
-\hfil
-\subfloat[$t=1$]{\includegraphics[width=0.32\textwidth]{figures/3t1.png}}
-\hfil
-\subfloat[$t=2$]{\includegraphics[width=0.32\textwidth]{figures/3t2.png}} \\
-\subfloat[$t=3$]{\includegraphics[width=0.32\textwidth]{figures/3t3.png}}
-\hfil
-\subfloat[$t=4$]{\includegraphics[width=0.32\textwidth]{figures/3t4.png}}
-\caption{Optimal deployment strategies: hazard prediction, outcome status, and tactical allocation across time steps.}
-\label{fig:simulation-results}
-\end{figure}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Resource Teams and Their Capacities Over Time}
+\label{tab:resource-teams}
+\begin{tabular}{@{} c c c c c @{}}
+\toprule
+\textbf{Type} & \textbf{Suppression Rate} & \textbf{Rescue Rate} & \textbf{Cost} & \textbf{Availability} \\
+\midrule
+A & 3 & 0  & 8  & $t=0$: 1 \\
+  &   &    &    & $t=1$: 2 \\
+  &   &    &    & $t=2$: 1 \\
+  &   &    &    & $t=3$: 2 \\
+  &   &    &    & $t=4$: 2 \\
+\midrule
+B & 5 & 1  & 18 & $t=0$: 1 \\
+  &   &    &    & $t=1$: 2 \\
+  &   &    &    & $t=2$: 0 \\
+  &   &    &    & $t=3$: 1 \\
+  &   &    &    & $t=4$: 2 \\
+\midrule
+C & 7 & 1  & 35 & $t=0$: 0 \\
+  &   &    &    & $t=1$: 2 \\
+  &   &    &    & $t=2$: 0 \\
+  &   &    &    & $t=3$: 1 \\
+  &   &    &    & $t=4$: 2 \\
+\midrule
+D & 0 & 2  & 7  & $t=0$: 1 \\
+  &   &    &    & $t=1$: 2 \\
+  &   &    &    & $t=2$: 1 \\
+  &   &    &    & $t=3$: 1 \\
+  &   &    &    & $t=4$: 3 \\
+\midrule
+E & 0 & 3  & 16 & $t=0$: 0 \\
+  &   &    &    & $t=1$: 1 \\
+  &   &    &    & $t=2$: 2 \\
+  &   &    &    & $t=3$: 2 \\
+  &   &    &    & $t=4$: 1 \\
+\midrule
+F & 1 & 5  & 37 & $t=0$: 0 \\
+  &   &    &    & $t=1$: 1 \\
+  &   &    &    & $t=2$: 0 \\
+  &   &    &    & $t=3$: 1 \\
+  &   &    &    & $t=4$: 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The accessibility constraint is defined such that all response operations can only be performed by ground crews. Consequently, all six resource types are considered ground-based units and can only access cells that are reachable through the building's floor layout. In the accessibility matrix, cells that can be accessed by ground crews are marked with a value of 0. In contrast, inaccessible areas (including structural barriers, non-operational spaces, areas with no population, or locations without alarm coverage) are represented by a value of -1.
+
+During each simulation period, the optimization framework determines how available response teams should be allocated across the grid cells. The objective is to minimize the number of vulnerable individuals exposed to fire and smoke hazards while simultaneously reducing property loss and maintaining deployment costs within the available budget.
+
+The resulting optimal strategies given by the model across the five time steps for this problem are illustrated in Figure~\ref{fig:simulation-results}(a)-(e).
 
 % Optional: individual figure environments if you prefer separate floats
 % \begin{figure}[!htb]
@@ -97,11 +97,14 @@ The resulting optimal strategies across the five time steps are illustrated in F
 % \end{figure}
 % ... repeat for t=1 to t=4 ...
 
-At $t=0$, the system identifies the ignition point and predicts early hazard propagation. Due to limited initial resources and high suppression requirement at the origin cell, deployment is conservative or focused on adjacent high-risk smoke-affected zones.
+At $t = 0$, the system detects the initial ignition point and evaluates the potential fire and smoke spread across the grid. Since the incident has just started, there are just three teams available for suppressing the fire and rescuing people, but their total suppression capability is limited and cannot meet the minimum suppression rate required for cell 31 at t = 0, which is 15, so no tactical resources are deployed yet. The system therefore focuses on predicting hazard propagation and identifying high-risk cells that may require intervention in the subsequent period.
 
-At $t=1$–$t=2$, more units become available. The model prioritizes cells with active fire, high population density, and high asset value, successfully suppressing several spreading fronts and rescuing occupants.
+At $t = 1$, the optimization model begins allocating response teams to critical cells where fire and smoke intensity, as well as population, are high. Multiple suppression teams are deployed to contain the active fire regions at cells 26, 32, and 38, while rescue-oriented teams are positioned to protect the vulnerable occupants. To be more specific, one type B unit is deployed to cell 26, another type B unit and one type C unit are deployed to cell 32, and finally, two type A units and another type C unit are deployed to cell 38. As a result, the three cells are successfully suppressed, and a number of individuals are rescued from high-risk areas. Cells 25 and 30 are unfortunately burnt and smoked due to limited resources availability and suppression capability.
 
-At $t=3$–$t=4$, remaining hazards are contained. Additional resources reinforce protected zones and complete evacuation from threatened areas, preventing further escalation.
+At $t = 2$, the previous suppression actions significantly reduce the number of high-risk cells. Fire propagation is partially contained, resulting in a noticeable decrease in both fire-risk and smoke-risk zones. The cell with index 20 has the minimum suppression rate requirement of 4. The available crews at this time only have the maximum suppression rate of only 3; therefore, by the end of t = 2, this cell is burnt and smoked, and that also increases the vulnerable population by 1.
 
-In summary, the model effectively coordinates multi-type resource deployment under tight constraints, significantly reducing both human risk and property damage while staying within the operational budget. It demonstrates robust real-time decision support for dynamic fire emergencies.
+At $t = 3$, additional hazard areas emerge due to remaining fire intensity and smoke spread. The optimization model reacts by reallocating available resources to two out of three newly threatened cells, which are cells 13 and 15. Suppression teams are deployed again to contain the fire, while rescue teams continue to evacuate individuals located in affected areas. Cell 13 receives help from four units of four different resource types, which are A, B, C, and E, while cell 15 receives help from 1 unit of type A and one unit of type B to suppress the fire and rescue people. Cell 14 does not receive any support, so by the end of t = 3, it is completely damaged.
 
+Finally, at $t = 4$, the emergency situation stabilizes as the remaining fire sources are controlled. Cells 7, 8, and 9 receive support from teams as shown in Figure~\ref{fig:simulation-results}(e) . No additional cells are burned or smoked, and several previously threatened cells are successfully protected by the end of t = 4. The final system indicators on the top show that a portion of the population has been safely rescued while limiting the spread of fire and minimizing property losses.
+
+In summary, the model provides optimal recommendations for allocating the available resources of response teams across specific cells, with the objective of reducing both the total population at risk and the total cells burned, while still maintaining a reasonable total cost of operation. It also prevents the fire from spreading to the rest of the floor, helping to further minimize damage to property and people.

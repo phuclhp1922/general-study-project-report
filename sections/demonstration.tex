@@ -1,10 +1,16 @@
 \section{Model Demonstration}
 \label{sec:demonstration}
 
-To illustrate the functionality of the proposed system, a web-based application has been developed and deployed at \,:contentReference[oaicite:0]{index=0}. The application provides an interactive interface that allows users to configure scenarios, execute the optimization model, and visualize the resulting fire-response strategy in real time.
+To illustrate the functionality of the proposed system, a web-based application has been developed and deployed at: https://mora-building.vercel.app
+
+The application provides an interactive interface that allows users to configure scenarios, execute the optimization model, and visualize the resulting fire-response strategy in real time.
 
 \subsection{Case Study 1: Single-Floor Apartment Scenario}
-To demonstrate the fundamental operation of the optimization model, a simplified scenario representing a single floor of a small apartment building is utilized. The floor is divided into a $3 \times 3$ grid of cells, where each cell represents a spatial zone within the building. The simulation is evaluated over four discrete time periods ($T = \{0, 1, 2, 3\}$). In this demonstration, fire and smoke spread rates are assumed to be constant, and parameters such as fire arrival time, population density, and property value remain fixed throughout the simulation.
+To demonstrate the fundamental operation of the proposed optimization model, a simplified scenario representing a single floor of a small apartment building is used. The purpose of this demonstration is to validate that the outputs produced by the system comply with the model constraints and optimization objectives.
+
+The floor is divided into a $3 \times 3$ grid of cells, where each cell represents a spatial zone within the building. This zone-based representation simplifies the modelling of fire spread, smoke propagation, and response team deployment.
+
+The simulation is evaluated over four discrete time periods ($T = \{0, 1, 2, 3\}$). In this demonstration, fire and smoke spread rates are assumed to be constant, and parameters such as fire arrival time, population density, and property value remain fixed throughout the simulation.
 
 \begin{figure}[!htb]
 \centering
@@ -16,52 +22,65 @@ To demonstrate the fundamental operation of the optimization model, a simplified
 \hfil
 \subfloat[Property Value]{\includegraphics[width=0.18\textwidth]{figures/1value.png}}
 \hfil
-\subfloat[Min. Suppression]{\includegraphics[width=0.18\textwidth]{figures/1min.png}}
+\subfloat[Minimum Suppression Rate Required]{\includegraphics[width=0.18\textwidth]{figures/1min.png}}
 \caption{Cell parameters for the Case Study 1 demonstration scenario.}
 \label{fig:scenario_params}
 \end{figure}
 
+Based on the fire arrival time matrix (Figure~\ref{fig:scenario_params}(a)), the fire initially starts in cell 5, which becomes the first high-risk fire zone. Because smoke propagates faster than fire, cell 4 is also initially affected by smoke.
+
 \subsubsection{Resource Allocation and Constraints}
-Three response team types are considered as shown in Table~\ref{tab:resources}. Each resource possesses distinct suppression rates and deployment costs. Based on the fire arrival time matrix (Fig.~\ref{fig:scenario_params}a), the fire initially starts in cell 5. Because smoke propagates faster than fire, cell 4 is initially affected by smoke.
+Three different response team types are considered as shown in Table~\ref{tab:resources}. Each resource type has its own suppression rate, rescue rate, and deployment cost.
+
+A brief description of the types:
+\begin{itemize}
+\item \textbf{Type A:} basic fire suppression unit (low cost, moderate suppression capability)
+\item \textbf{Type B:} fire brigade unit capable of both suppression and rescue operations
+\item \textbf{Type C:} specialized response unit with balanced suppression and rescue capabilities
+\end{itemize}
+
+In real-world situations, these resource types could represent, for example:
+
+\begin{itemize}
+\item \textbf{Type A:} hand crew firefighters
+\item \textbf{Type B:} fire engines with rescue teams
+\item \textbf{Type C:} aerial firefighting units or specialized rapid-response teams
+\end{itemize}
+
+The minimum suppression rate required to contain the fire in each cell is illustrated in Figure~\ref{fig:scenario_params}(e), while the total available deployment budget is 30 units.
 
 \begin{table}[!htb]
 \centering
-\caption{Resource teams and their capacities over time}
+\footnotesize   % or \small if \footnotesize is too small
+\setlength{\tabcolsep}{4pt}
+\caption{Resource Teams and Their Capacities Over Time}
 \label{tab:resources}
-\begin{tabularx}{\linewidth}{@{}c c c X@{}}
+\begin{tabular}{@{} c c c c c @{}}
 \toprule
-\textbf{Resource Type} & \textbf{Suppression Rate} & \textbf{Cost} & \textbf{Capacity (Availability)} \\
-\hline
-A & 3 & 3 & 
-\shortstack{$t=0:0$ \\ $t=1:2$ \\ $t=2:1$} \\
-\hline
-B & 1 & 2 & 
-\shortstack{$t=0:0$ \\ $t=1:1$ \\ $t=2:1$} \\
-\hline
-C & 2 & 4 & 
-\shortstack{$t=0:1$ \\ $t=1:1$ \\ $t=2:2$} \\
+\textbf{Type} & \textbf{Suppression Rate} & \textbf{Rescue Rate} & \textbf{Cost} & \textbf{Availability} \\
+\midrule
+A & 3 & 0 & 3 & $t=0$: 0 \\
+  &   &   &   & $t=1$: 2 \\
+  &   &   &   & $t=2$: 1 \\
+\midrule
+B & 1 & 2 & 2 & $t=0$: 0 \\
+  &   &   &   & $t=1$: 1 \\
+  &   &   &   & $t=2$: 1 \\
+\midrule
+C & 2 & 2 & 4 & $t=0$: 1 \\
+  &   &   &   & $t=1$: 1 \\
+  &   &   &   & $t=2$: 2 \\
 \bottomrule
-\end{tabularx}
+\end{tabular}
 \end{table}
 
 \subsubsection{Simulation Results}
-The optimal solution obtained from the model is illustrated in Fig.~\ref{fig:sim_results}. The model's prioritization logic is observed as follows:
+The optimal solution obtained from the model is illustrated in Figure~\ref{fig:sim_results}. The model's prioritization logic is observed as follows:
 \begin{itemize}
-    \item \textbf{Time Step ($t=0$):} Since only one Type C unit (suppression rate = 2) is available and the requirement for cell 5 is 4 (Fig.~\ref{fig:scenario_params}e), the model avoids wasteful deployment. Instead, it allocates the Type C unit to cell 4 for early smoke intervention.
-    \item \textbf{Time Step ($t=1$):} Fire spreads to cells 1, 2, 4, and 8. The model deploys Type A and Type B units to cell 2, enabling both suppression and occupant rescue.
-    \item \textbf{Time Step ($t=2$):} The fire reaches cells 0 and 3. Deployment of Type B (cell 0) and Type A+C (cell 3) provides sufficient capacity to contain the fire and halt propagation.
+    \item \textbf{Time Step ($t=0$):} At the initial time step, cell 5 is both a fire and smoke high-risk cell. Since only one Type C unit, which has the suppression rate of 2, is available, and the minimum suppression requirement of cell 5 is 4 (Figure~\ref{fig:scenario_params}(e), the model determines that deploying this unit to cell 5 would not successfully contain the fire, which is a wasteful deployment. Instead, it allocates the Type C unit to cell 4, which is under smoke risk but still accessible for early intervention, to rescue people because its rescue rate exceeds the requirement (2 > 1). Since the remaining resources are unavailable at this time step, no suppression action is performed on cell 5. Consequently, by the next period the fire continues to spread.
+    \item \textbf{Time Step ($t=1$):} By (t = 1), cell 5 becomes fully burnt, and the fire spreads to neighboring cells 1, 2, 4, and 8. The model deploys one Type A unit and one Type B unit to cell 2, enabling both suppression and occupant rescue. However, cell 4 receives only a Type A unit, which has fire suppression capability but no rescue capability. Therefore, although the fire is partially controlled, the occupants in that cell cannot be rescued. During this period, cells 1 and 8 become fully burnt and smoked due to the continued fire spread.
+    \item \textbf{Time Step ($t=2$):} The fire reaches cells 0 and 3. Deployment of Type B (cell 0) and Type A+C (cell 3) provides sufficient capacity to contain the fire and halt further propagation.
 \end{itemize}
-
-\begin{figure}[!htb]
-\centering
-\subfloat[$t=0$ Allocation]{\includegraphics[width=0.32\textwidth]{figures/1t0.png}}
-\hfil
-\subfloat[$t=1$ Allocation]{\includegraphics[width=0.32\textwidth]{figures/1t1.png}}
-\hfil
-\subfloat[$t=2$ Allocation]{\includegraphics[width=0.32\textwidth]{figures/1t2.png}}
-\caption{Simulation results across time steps showing hazard prediction, outcome status, and tactical deployment.}
-\label{fig:sim_results}
-\end{figure}
 
 \subsubsection{Performance Summary}
 
@@ -80,94 +99,66 @@ $O_3$ & Total deployment cost & 25 \\ \hline
 \end{tabular}
 \end{table}
 
+In summary, this demonstration illustrates how the proposed optimization model dynamically allocates emergency response resources across space and time. The model generates recommendations for deploying response teams to specific cells in order to reduce the number of high-risk population zones, minimize property value losses caused by fire spread, and utilize response resources efficiently under budget and availability constraints.
+
+The interactive visualization shown in Figure~\ref{fig:sim_results} highlights both the hazard propagation process and the results of suppression and rescue actions, providing a clear understanding of how the model supports decision-making during emergency response operations.
+
 \subsection{Case Study 2: Multi-Floor Accessibility and Resource Synchronization}
 
-To further evaluate the robustness of the proposed model in more complex spatial environments, a second scenario involving a two-floor building was conducted. Each floor is represented by a $3 \times 3$ grid, forming a multi-layer spatial structure. The model operates over discrete time steps $T=\{0,1,2\}$, while incorporating heterogeneous resource teams with different suppression and rescue capabilities.
+To further evaluate the robustness of the proposed model in more complex spatial environments, a second scenario involving a two-floor building was conducted. Each floor is represented by a $3 \times 3$ grid, forming a multi-layer spatial structure. The model operates over discrete time steps $T=\{0,1,2\}$, while incorporating various resource teams with different suppression and rescue capabilities.
 
 \subsubsection{Scenario Parameters}
 
-\begin{figure}[!htb]
-\centering
-\subfloat[Floor 0 Parameters]{\includegraphics[width=0.45\textwidth]{figures/2floor1.png}}
-\hfil
-\subfloat[Floor 1 Parameters]{\includegraphics[width=0.45\textwidth]{figures/2floor2.png}}
-\caption{Environmental parameters for the two-floor case study.}
-\label{fig:case2_params}
-\end{figure}
-
 Figure~\ref{fig:case2_params} presents the environmental parameters used in this experiment, including fire arrival times, smoke propagation times, population distribution, property value, and minimum suppression requirements.
-
 
 Each cell contains information describing when hazards arrive, the number of occupants present, and the economic value associated with that location. The minimum suppression matrix indicates the suppression effort required to fully contain a fire within a cell.
 
 \subsubsection{Resource Configuration}
 
-The emergency response system includes six different resource types, each representing specialized firefighting or rescue teams. Table~\ref{tab:resources_case2} summarizes their suppression capacity, deployment cost, and availability across time.
+The emergency response system includes six different resource types, each representing specialized firefighting or rescue teams. Table~\ref{tab:resources_case2} summarizes their suppression and rescue capacity, deployment cost, and availability across time.
 
 \begin{table}[!htb]
 \centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
 \caption{Resource Teams and Their Capacities Over Time}
 \label{tab:resources_case2}
-
-\begin{tabularx}{\linewidth}{@{}c c c X@{}}
-\hline
-\textbf{Resource Type} & \textbf{Suppression Rate} & \textbf{Cost} & \textbf{Capacity (Availability)} \\
-\hline
-
-A & 3 & 8 &
-\shortstack{$t=0:1$ \\ $t=1:2$ \\ $t=2:1$ \\ $t=3:2$ \\ $t=4:2$} \\
-
-\hline
-B & 5 & 18 &
-\shortstack{$t=0:1$ \\ $t=1:2$ \\ $t=2:0$ \\ $t=3:1$ \\ $t=4:2$} \\
-
-\hline
-C & 7 & 35 &
-\shortstack{$t=0:0$ \\ $t=1:2$ \\ $t=2:0$ \\ $t=3:1$ \\ $t=4:2$} \\
-
-\hline
-D & 0 & 7 &
-\shortstack{$t=0:1$ \\ $t=1:2$ \\ $t=2:1$ \\ $t=3:1$ \\ $t=4:3$} \\
-
-\hline
-E & 0 & 16 &
-\shortstack{$t=0:0$ \\ $t=1:1$ \\ $t=2:2$ \\ $t=3:2$ \\ $t=4:1$} \\
-
-\hline
-F & 1 & 37 &
-\shortstack{$t=0:0$ \\ $t=1:1$ \\ $t=2:0$ \\ $t=3:1$ \\ $t=4:2$} \\
-
-\hline
-\end{tabularx}
+\begin{tabular}{@{} c c c c c @{}}
+\toprule
+\textbf{Type} & \textbf{Suppression Rate} & \textbf{Rescue Rate} & \textbf{Cost} & \textbf{Availability} \\
+\midrule
+A & 3 & 0  & 3  & $t=0$: 0 \\
+  &   &    &    & $t=1$: 2 \\
+  &   &    &    & $t=2$: 1 \\
+\midrule
+B & 1 & 2  & 2 & $t=0$: 0 \\
+  &   &    &    & $t=1$: 1 \\
+  &   &    &    & $t=2$: 1 \\
+\midrule
+C & 2 & 2  & 4 & $t=0$: 1 \\
+  &   &    &    & $t=1$: 1 \\
+  &   &    &    & $t=2$: 2 \\
+\midrule
+D & 3 & 0  & 6  & $t=0$: 0 \\
+  &   &    &    & $t=1$: 2 \\
+  &   &    &    & $t=2$: 1 \\
+\midrule
+E & 1 & 2  & 4 & $t=0$: 0 \\
+  &   &    &    & $t=1$: 1 \\
+  &   &    &    & $t=2$: 1 \\
+\midrule
+F & 2 & 2  & 8 & $t=0$: 1 \\
+  &   &    &    & $t=1$: 1 \\
+  &   &    &    & $t=2$: 2 \\
+\bottomrule
+\end{tabular}
 \end{table}
 
-Resources A, B, and C provide fire suppression capabilities with increasing strength, while resources D and E are specialized rescue units designed to evacuate occupants without directly contributing to fire containment. Resource F provides limited suppression but operates at a high deployment cost due to its specialized equipment.
+Resources A, B, and C provide suppression and rescue capabilities from the ground similar to the first example, while resources D, E, and F provides ideal capabilities but from the air.
 
 \subsubsection{Simulation Results}
 
 Figures~\ref{fig:case2_results_floor0} and~\ref{fig:case2_results_floor1} illustrate the optimal deployment strategy generated by the model across time for both floors.
-
-\begin{figure}[!htb]
-\centering
-\subfloat[$t=0$]{\includegraphics[width=0.32\textwidth]{figures/2t0f1.png}}
-\hfil
-\subfloat[$t=1$]{\includegraphics[width=0.32\textwidth]{figures/2t1f1.png}}
-\hfil
-\subfloat[$t=2$]{\includegraphics[width=0.32\textwidth]{figures/2t2f1.png}}
-\caption{Simulation results for Floor 0 showing hazard prediction, outcome status, and tactical deployment across time.}
-\label{fig:case2_results_floor0}
-\end{figure}
-
-\begin{figure}[!htb]
-\centering
-\subfloat[$t=0$]{\includegraphics[width=0.32\textwidth]{figures/2t0f2.png}}
-\hfil
-\subfloat[$t=1$]{\includegraphics[width=0.32\textwidth]{figures/2t1f2.png}}
-\hfil
-\subfloat[$t=2$]{\includegraphics[width=0.32\textwidth]{figures/2t2f2.png}}
-\caption{Simulation results for Floor 1 showing hazard prediction, outcome status, and tactical deployment across time.}
-\label{fig:case2_results_floor1}
-\end{figure}
 
 At the initial time step ($t=0$), the model deploys a limited set of resources due to early availability constraints. Tactical placement focuses on containing initial hazards and rescuing occupants in high-risk zones.
 
