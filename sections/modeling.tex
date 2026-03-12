@@ -51,7 +51,9 @@ We define the following parameters for constraint in our model:
     \item $P_a$: the population in cell $a$ 
     \item $J_a$: the minimum suppression rate in cell $a$. 
     \item $V_a$: the property value in cell $a$.
-    \item $G_a$: the accessibility of cell $a$.
+
+    \item $G_a$: the accessibility of cell $a$. It is either -1, 0, 1, or 2, meaning inaccessible, land only, air only, or both, respectively. 
+    \item $G_{i,a}$: the binary parameter defining whether cell $a$ is accessible to unit $i$. 
 
     \item $C_i$: the cost of deploying one unit of resource type $i$. 
     \item $S_i$: the suppression rate of resource type $i$.
@@ -67,14 +69,14 @@ We define the following parameters for constraint in our model:
 We define the following decision variables in our model:
 
 \begin{itemize}
-    \item $x_{i,a,t}$: the number of units of resource type $i$ deployed to cell $a$ at time step $t$.
+    \item $x_{i,a,t}$: the number of unit $i$ deployed to cell $a$ at time step $t$.
     
     \item $\mu_{a,t}$: the binary variable defining whether the fire in cell $a$ is high-risk at time step $t$.
-    \item $k_{a,t}$: the binary variable defining whether the fire in cell $a$ is doomed at time step $t$.
+    \item $k_{a,t}$: the binary variable defining whether the fire in cell $a$ is untreatable at time step $t$.
     \item $\phi_{a,t}$: the binary variable defining whether the fire in cell $a$ is treated at time step $t$.
 
     \item $\sigma_{a,t}$: the binary variable defining the smoke in cell $a$ is high-risk at time step $t$.
-    \item $f_{a,t}$: the binary variable defining whether the population in cell $a$ is doomed at time step $t$.
+    \item $f_{a,t}$: the binary variable defining whether the population in cell $a$ is untreatable at time step $t$.
     \item $\psi_{a,t}$: the binary variable defining whether the population in cell $a$ is rescued at time step $t$.
     
     \item $\rho_{a,t}$: the binary variable defining
@@ -85,13 +87,13 @@ We define the following decision variables in our model:
 We define the following objective functions for our model:
 
 \begin{itemize}
-    \item $O_1$: the total population 
+    \item $O_1$: the total population at risk
     $$O_1 = \sum_{a \in A} (P_a \sum_{t \in T} \rho_{a,t} ) $$
 
-    \item $O_2$: the total property value
+    \item $O_2$: the total property value lost
     $$O_2 = \sum_{a \in A} (V_a \sum_{t \in T} z_{a,t} ) $$
 
-    \item $O_3$: the total cost of unit deployment
+    \item $O_3$: the total cost of all unit deployment
     $$O_3 = \sum_{i \in I} \sum_{a \in A} \sum_{t \in T} x_{i,a,t} C_i $$
 \end{itemize}
 
@@ -119,17 +121,18 @@ and bound the allocation of resources in our model:
 
     \item Units are only deployed to a cell if that cell is accessible for these units. 
     $$z_{i,a,t} \leq G_{i,a} $$
+    $$x_{i,a,t} \leq max_{i}K_{i,t} z_{i,a,t}$$
 
     \item Only high-risk cells are treated with resources. 
     $$\phi_{a,t} \leq \mu_{a,t}, \quad \forall a \in A, \forall t \in T$$
     $$\psi_{a,t} \leq \sigma_{a,t}, \quad \forall a \in A, \forall t \in T$$
 
-    \item High-risk cells in this time step will become doomed cells in the next time step
+    \item High-risk cells in this time step will become untreatable cells in the next time step
     if they are not treated with resources.
     $$k_{a,t} \leq \mu_{a,t-1} - \phi_{a,t-1}, \quad \forall a \in A, \forall t \in (1,T)$$
     $$f_{a,t} \leq \sigma_{a,t-1} - \psi_{a,t-1}, \quad \forall a \in A, \forall t \in (1,T)$$
 
-    \item Each cell can only a high-risk cell, a doomed cell, or a treated cell at most once.
+    \item Each cell can only a high-risk cell, an untreatable cell, or a treated cell at most once.
     $$\sum_{t \in T} \mu_{a,t} \leq 1, \quad \forall a \in A, \forall t \in T$$ 
     $$\sum_{t \in T} \sigma_{a,t} \leq 1, \quad \forall a \in A, \forall t \in T$$
     $$\sum_{t \in T} k_{a,t} \leq 1, \quad \forall a \in A, \forall t \in T$$ 
@@ -138,18 +141,18 @@ and bound the allocation of resources in our model:
     $$\sum_{t \in T} \phi_{a,t} \leq 1, \quad \forall a \in A, \forall t \in T$$ 
     $$\sum_{t \in T} \psi_{a,t} \leq 1, \quad \forall a \in A, \forall t \in T$$ 
 
-    \item Treated or doomed cells must previously be high-risk cells.
+    \item Treated or untreatable cells must previously be high-risk cells.
     $$\sum_{t \in T} k_{a,t} \leq \sum_{t \in T} \mu_{a,t}, \forall a \in A, t \in T$$
     $$\sum_{t \in T} \phi_{a,t} \leq \sum_{t \in T} \mu_{a,t}, \forall a \in A, t \in T$$
 
     $$\sum_{t \in T} f_{a,t} \leq \sum_{t \in T} \sigma_{a,t}, \forall a \in A, t \in T$$
     $$\sum_{t \in T} \psi_{a,t} \leq \sum_{t \in T} \sigma_{a,t}, \forall a \in A, t \in T$$
 
-    \item A high-risk cell can only be either treated or doomed in the end, but not both.
+    \item A high-risk cell can only be either treated or untreatable in the end, but not both.
     $$\sum_{t \in T} k_{a,t} + \sum_{t \in T} \phi_{a,t} \leq 1, \forall a \in A, t \in T$$
     $$\sum_{t \in T} f_{a,t} + \sum_{t \in T} \psi_{a,t} \leq 1, \forall a \in A, t \in T$$   
     
-    \item Each high-risk cell must be treated or doomed in the end. 
+    \item Each high-risk cell must be treated or untreatable in the end. 
     $$\sum_{t \in T} k_{a,t} + \sum_{t \in T} \phi_{a,t} \geq \sum_{t \in T} \mu_{a,t}, \forall t \in T$$
     $$\sum_{t \in T} f_{a,t} + \sum_{t \in T} \psi_{a,t} \geq \sum_{t \in T} \sigma_{a,t}, \forall t \in T$$
 
