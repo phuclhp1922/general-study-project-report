@@ -107,4 +107,19 @@ At $t = 3$, additional hazard areas emerge due to remaining fire intensity and s
 
 Finally, at $t = 4$, the emergency situation stabilizes as the remaining fire sources are controlled. Cells 7, 8, and 9 receive support from teams as shown in Figure~\ref{fig:simulation-results}(e) . No additional cells are burned or smoked, and several previously threatened cells are successfully protected by the end of t = 4. The final system indicators on the top show that a portion of the population has been safely rescued while limiting the spread of fire and minimizing property losses.
 
+The aggregated performance metrics of the optimization model for this scenario are summarized in Table~\ref{tab:case3_performance}.
+
+\begin{table}[!htb]
+\caption{Quantitative performance: Case Study 3}
+\label{tab:case3_performance}
+\centering
+\begin{tabular}{|c|l|c|}
+\hline
+\textbf{Objective} & \textbf{Description} & \textbf{Value} \\ \hline
+$O_1$ & Total population at risk & 8 \\ \hline
+$O_2$ & Property value lost & 1260 \\ \hline
+$O_3$ & Total deployment cost & 336 \\ \hline
+\end{tabular}
+\end{table}
+
 In summary, the model provides optimal recommendations for allocating the available resources of response teams across specific cells, with the objective of reducing both the total population at risk and the total cells burned, while still maintaining a reasonable total cost of operation. It also prevents the fire from spreading to the rest of the floor, helping to further minimize damage to property and people.
